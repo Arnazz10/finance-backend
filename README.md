@@ -39,6 +39,26 @@ A FastAPI backend for a finance dashboard with JWT authentication, role-based ac
 5. **Access the API Documentation**:
    Visit `http://localhost:8000/docs` for the interactive Swagger UI.
 
+## Public Deployment
+
+The repository includes [render.yaml](/home/arnab/CODE/zorvyn-backend-task/render.yaml) for a quick Render deployment.
+
+### Deploy on Render
+
+1. Push the latest code to GitHub.
+2. Sign in to Render and choose **New +** -> **Blueprint**.
+3. Connect the GitHub repository: `https://github.com/Arnazz10/finance-backend`
+4. Render will detect `render.yaml` and create the web service automatically.
+5. After the deploy finishes, open:
+   - `https://<your-render-service>.onrender.com/docs`
+   - `https://<your-render-service>.onrender.com/openapi.json`
+
+### Notes
+
+- The deployment uses SQLite for simplicity, which is acceptable for this assignment but not ideal for multi-instance production workloads.
+- Demo users are seeded automatically if `SEED_DEMO_DATA=true`.
+- Render free instances can spin down when idle, so the first request may be slower.
+
 ## Demo Users
 
 If `SEED_DEMO_DATA=true`, the app creates these users on startup if they do not already exist:

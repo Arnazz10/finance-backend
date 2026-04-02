@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: finance-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///./finance.db
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: "30"
+      - key: SEED_DEMO_DATA
+        value: "true"
+      - key: DEMO_ADMIN_EMAIL
+        value: admin@demo.local
+      - key: DEMO_ADMIN_PASSWORD
+        value: AdminPass123
+      - key: DEMO_ANALYST_EMAIL
+        value: analyst@demo.local
+      - key: DEMO_ANALYST_PASSWORD
+        value: AnalystPass123
+      - key: DEMO_VIEWER_EMAIL
+        value: viewer@demo.local
+      - key: DEMO_VIEWER_PASSWORD
+        value: ViewerPass123

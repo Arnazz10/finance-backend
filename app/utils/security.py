@@ -2,14 +2,15 @@ from datetime import datetime, timedelta, timezone
 from typing import Optional
 from jose import jwt
 from passlib.context import CryptContext
+from ..config import settings
 
 # Use a Passlib-native scheme to avoid environment-specific bcrypt backend issues.
 pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
 
 # JWT configuration
-SECRET_KEY = "your-secret-key-here"  # Use a real secret key in production
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+SECRET_KEY = settings.secret_key
+ALGORITHM = settings.algorithm
+ACCESS_TOKEN_EXPIRE_MINUTES = settings.access_token_expire_minutes
 
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)

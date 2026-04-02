@@ -8,6 +8,7 @@ A FastAPI backend for a finance dashboard with JWT authentication, role-based ac
 - **Dashboard Analytics**: Summary totals, category totals, recent transactions, and monthly trends.
 - **RBAC Middleware**: Permission enforcement at the API layer.
 - **Database**: SQLite with SQLAlchemy and additive startup migrations for existing local DBs.
+- **Environment-Based Config**: JWT, database URL, and demo seed credentials can be configured with environment variables.
 
 ## Tech Stack
 - **FastAPI**: Modern, high-performance web framework.
@@ -22,7 +23,12 @@ A FastAPI backend for a finance dashboard with JWT authentication, role-based ac
    ```bash
    pip install -r requirements.txt
    ```
-3. **Run the application**:
+3. **Configure environment variables**:
+   ```bash
+   cp .env.example .env
+   ```
+   Update `SECRET_KEY` before using the project outside local demo mode.
+4. **Run the application**:
    ```bash
    python -m app.main
    ```
@@ -30,8 +36,18 @@ A FastAPI backend for a finance dashboard with JWT authentication, role-based ac
    ```bash
    uvicorn app.main:app --reload
    ```
-4. **Access the API Documentation**:
+5. **Access the API Documentation**:
    Visit `http://localhost:8000/docs` for the interactive Swagger UI.
+
+## Demo Users
+
+If `SEED_DEMO_DATA=true`, the app creates these users on startup if they do not already exist:
+
+| Role | Email | Password |
+|------|-------|----------|
+| Admin | `admin@demo.local` | `AdminPass123` |
+| Analyst | `analyst@demo.local` | `AnalystPass123` |
+| Viewer | `viewer@demo.local` | `ViewerPass123` |
 
 ## Role Permissions
 
@@ -56,4 +72,5 @@ A FastAPI backend for a finance dashboard with JWT authentication, role-based ac
 - **Validation**: Positive amounts, bounded text fields, and date-range validation return proper 4xx responses.
 - **Soft Delete**: Deleting a record sets `is_deleted = true` instead of removing it from the database.
 - **Auto-Migration**: Startup creates tables and adds a small set of missing SQLite columns for existing local databases.
+- **Demo Seed Data**: Startup can seed demo accounts for quick login/testing via environment variables.
 - **Verification**: Run `venv/bin/python -m unittest -v tests.test_api` to execute the local test suite.
